@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الطلب #{{ order.order_number }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Cairo', sans-serif; background-color: #121110; color: #E6E2DE; } </style>
+</head>
+<body class="bg-[#121110] text-[#E6E2DE] p-4">
+    <div class="max-w-md mx-auto py-10">
+        <div class="bg-[#1A1816] border border-[#2B2724] rounded-2xl p-6 shadow-xl text-center">
+            <h1 class="text-base font-bold text-[#C5A059] mb-2">رقم الطلب #{{ order.order_number }}</h1>
+            <p class="text-xs text-amber-300 mb-4 font-semibold">حالة الطلب: {{ order.status }}</p>
+            
+            <div class="bg-[#121110] p-4 rounded-xl text-right text-xs space-y-2 mb-6 border border-[#2B2724]">
+                <div>المنتج: <span class="text-white font-bold">{{ order.product }}</span></div>
+                <div>المبلغ المطلوب: <span class="text-[#C5A059] font-bold">{{ order.price }} USDT</span></div>
+                <div>معرف معاملة باينانس: <span class="text-gray-300 font-mono">{{ order.tx }}</span></div>
+            </div>
+
+            {% if "مكتمل" not in order.status %}
+            <form action="/verify-binance/{{ order.id }}" method="POST" class="mb-4">
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-lg">
+                    ⚡ التحقق الفوري وتأكيد الدفع عبر Binance Pay
+                </button>
+            </form>
+            {% else %}
+            <div class="bg-emerald-950/30 border border-emerald-600/30 text-emerald-300 p-3 rounded-xl text-xs font-bold mb-4">
+                ✓ تم التحقق من المعاملة بنجاح، وتم إرسال تفاصيل السكربت إلى بريدك الإلكتروني!
+            </div>
+            {% endif %}
+
+            <a href="/" class="block text-[#C5A059] hover:underline text-xs mt-2">← العودة إلى المتجر الرئيسي</a>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المالك - PyAutomation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Cairo', sans-serif; } </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased p-6">
+
+    <div class="max-w-5xl mx-auto">
+        <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
+            <h1 class="text-2xl font-black text-amber-400">🔒 لوحة تحكم المالك (الطلبات الواردة)</h1>
+            <a href="/" target="_blank" class="bg-slate-900 border border-slate-800 hover:border-amber-500 text-slate-300 px-4 py-2 rounded-xl text-sm font-bold transition">
+                زيارة المتجر (الواجهة العامة) ↗
+            </a>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 overflow-x-auto shadow-xl">
+            <table class="w-full text-right border-collapse text-sm">
+                <thead>
+                    <tr class="border-b border-slate-800 text-slate-400">
+                        <th class="p-3">رقم الطلب</th>
+                        <th class="p-3">العميل</th>
+                        <th class="p-3">التواصل</th>
+                        <th class="p-3">السكريبت المطلوب</th>
+                        <th class="p-3">رقم التحويل (TxID)</th>
+                        <th class="p-3">الحالة / الإجراء</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr class="border-b border-slate-800/50">
+                        <td class="p-3">{{ order.id }}</td>
+                        <td class="p-3 font-bold">{{ order.name }}</td>
+                        <td class="p-3 text-amber-300">{{ order.contact }}</td>
+                        <td class="p-3">{{ order.script }}</td>
+                        <td class="p-3 font-mono text-xs">{{ order.tx_id }}</td>
+                        <td class="p-3">
+                            {% if order.status == 'pending' %}
+                            <form action="/admin/approve/{{ order.id }}" method="POST">
+                                <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow">
+                                    تأكيد الدفع
+                                </button>
+                            </form>
+                            {% else %}
+                            <span class="text-emerald-400 font-bold text-xs bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-800">تم التأكيد ✓</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="p-8 text-center text-slate-500">لا توجد طلبات جديدة حتى الآن.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Processing - PyAutomation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Cairo', sans-serif; } </style>
+</head>
+<body class="bg-slate-950 text-slate-100 flex items-center justify-center h-screen m-0">
+
+    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl shadow-2xl text-center max-w-md w-full mx-4 space-y-6">
+        <!-- Loading Spinner -->
+        <div class="flex justify-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-amber-500"></div>
+        </div>
+
+        <!-- Thank you & Status Message -->
+        <div class="space-y-2">
+            <h1 class="text-2xl font-black text-amber-400">Thank you for using our store!</h1>
+            <p class="text-slate-300 font-semibold text-lg">شكرا لاستعمالك متجرنا</p>
+            <p class="text-slate-400 text-sm leading-relaxed pt-2">
+                Your order <span class="text-amber-400 font-bold">#{{ order.id }}</span> for <span class="text-slate-200 font-bold">{{ order.product }}</span> has been submitted successfully and is currently <span class="text-amber-500 font-bold">Pending Review</span>.
+            </p>
+        </div>
+
+        <!-- Info Box -->
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs text-slate-400 space-y-1">
+            <p>We are verifying your Binance transaction ID.</p>
+            <p>Your script/service will be delivered to: <strong class="text-slate-200">{{ order.contact }}</strong> soon.</p>
+        </div>
+
+        <!-- Return Button -->
+        <div>
+            <a href="/" class="inline-block bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-6 py-2.5 rounded-xl transition text-sm">Return to Store</a>
+        </div>
+    </div>
+
+</body>
+</html>
+
